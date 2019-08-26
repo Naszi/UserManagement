@@ -2,8 +2,11 @@ package hu.naszi;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 public class UserDao {
@@ -32,8 +35,18 @@ public class UserDao {
 	}
 
 	private void saveUserList(List<User> userList) {
-		// TODO Auto-generated method stub
-		
+		try {
+			File file = new File("Users.dat");
+			FileOutputStream fileOutputStream;
+			fileOutputStream = new FileOutputStream(file);
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			objectOutputStream.writeObject(userList);
+			objectOutputStream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
